@@ -28,7 +28,9 @@ while True:
             print( "The name doesnot exist " )
 
     elif a == 4:
-        print (contacts)
+        print( "\t\t NAME \t\t\t | \t\t PHONE" )
+        for k,v in contacts.items():
+            print(f"\t\t {k} \t\t\t | \t\t {v}")
 
     elif a == 5:
         delete = input ("enter the name of number you want to delete ").lower()
