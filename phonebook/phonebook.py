@@ -44,6 +44,12 @@ while True:
     else :
         print("please enter the values from 1 to 5")
 
+    a = input ("Enter 0 to exit 1 to continue :")
+    if a == '0':
+        break
+    else :
+        continue 
+
 
 
 
