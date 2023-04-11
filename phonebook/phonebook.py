@@ -1,13 +1,27 @@
 # contact book using dictonaries
 # user input to register new search or edit 
+contacts = {}
+def read_file():
+    with open ("phone_entries.txt",'r') as file:
+        for line in file :
+            (key , value) = line.split (":")
+            contacts [str(key)] = int(value) 
+            print (contacts)
+
+def write_file():
+    with open ("phone_entries.txt", 'a') as file:
+        for k,v in contacts.items():
+            file.write (f"{str(k)}\t\t:\t\t{str(v)}\n")
+
 
 def get_name():
     return input("Please enter the name ").lower()
 
-contacts = { "ram":1234567890 ,"shyam": 2121212121 ,"hari": 1234567341}
+# contacts = { "ram":1234567890 ,"shyam": 2121212121 ,"hari": 1234567341}
 while True:
+    read_file()
     print("enter the thing you want to do ") 
-    a =  int(input( "1 for register , 2 for search , 3 for edit , 4 for show , 5 for delete\n" ))
+    a =  int(input( "1 for register , 2 for search , 3 for edit , 4 for show , 5 for delete\n , 6 to save" ))
 
     if a ==1:
         # name = input ( " enter the name you want to register ").lower()
@@ -44,7 +58,9 @@ while True:
         else :
             print(f" {delete} entry not found ")
         print (contacts)
-        
+
+    elif a == 6:
+        write_file()
     else :
         print("please enter the values from 1 to 5")
 
