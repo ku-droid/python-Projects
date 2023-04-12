@@ -6,6 +6,8 @@
 def slice_string(string , position) :
     left_position = position -1
     right_position = position +1
+    if string [right_position] == '-':
+        right_position += 1
 
     while left_position >= 0 and string [left_position] not in "+/*":
         if string [left_position] == '-'  :
@@ -24,8 +26,6 @@ def slice_string(string , position) :
     while right_position <= len(string) -1 and string [right_position] not in "+-/*":
         right_position += 1
 
-
-    # print (string[left_position+1 :right_position])
     return string [left_position +1 : right_position ]
 
 
@@ -58,67 +58,77 @@ def sub_string (a):
 def mul_string (a):
     index_of_operator = a[1:].index('*') + 1 
     if a[0] == '-':
-        output = str (  - int (a[index_of_operator + 1 : ]) *  int (  a[1:index_of_operator]))
-        # return add_positive_before_replace(output)
-        return output
+        if a[index_of_operator + 1] == '-':
+            output = '+' + str (  int (a[index_of_operator + 2 : ]) *  int (  a[1:index_of_operator]))
+        else :
+            output = str (  - int (a[index_of_operator + 1 : ]) *  int (  a[1:index_of_operator]))
     else :
-        output = str (   int (a[index_of_operator + 1 : ]) *  int (  a[:index_of_operator]))
-        # return add_positive_before_replace(output)
-        return output
+        if a[index_of_operator + 1] == '-':
+            output = str (  - int (a[index_of_operator + 2 : ]) *  int (  a[1:index_of_operator]))
+
+        else :
+            output = str (   int (a[index_of_operator + 1 : ]) *  int (  a[:index_of_operator]))
+    return output
     
 def div_string (a):
     index_of_operator = a[1:].index('/') + 1 
     if a[0] == '-':
         output = str (  - int (  a[1:index_of_operator]) / int (a[index_of_operator + 1 : ]))
-        # return add_positive_before_replace(output)
-        return output
     else :
         output = str (  int (  a[:index_of_operator]) / int (a[index_of_operator + 1 : ]))
-        # return add_positive_before_replace(output)
-        return output
+    return output
 
-# a = "1+3+5-56-200" 
-a = "-47-20-200+55-3000*23 /3"
-# print(slice_string (a,3))
-# i = 1
 
 def replace_string(b,c):
     global a
     a = a.replace(b,c)
 
-while '/' in a [1:] :
-    pos = a[1:].index('/') +1
-    b = slice_string(a,pos)
-    c = div_string(b)
-    replace_string (b,c)
+def mul_all():
+    global a
+    while '*' in a [1:] :
+        pos = a[1:].index('*') +1
+        b = slice_string(a,pos)
+        c = mul_string(b)
+        replace_string (b,c)
+        if a[0] == '+':
+            a = a[1:]
+        print (a)
+
+def add_all():
+    global a
+    while '+' in a [1:] :
+        pos = a[1:].index('+') +1
+        b = slice_string(a,pos)
+        c = add_string(b)
+        replace_string (b,c)
+        if a[0] == '+':
+            a = a[1:]
+        print (a)
+
+def sub_all():
+    global a
+    while '-' in a [1:] :
+        pos = a[1:].index('-') +1
+        b = slice_string(a,pos)
+        c = sub_string(b)
+        replace_string (b,c)
+        print (a)
+
+
+def calculate_all():
+    global a
+    mul_all()
+    add_all()
+    sub_all()
     if a[0] == '+':
         a = a[1:]
-    print (a)
 
-while '*' in a [1:] :
-    pos = a[1:].index('*') +1
-    b = slice_string(a,pos)
-    c = mul_string(b)
-    replace_string (b,c)
-    if a[0] == '+':
-        a = a[1:]
-    print (a)
-
-while '+' in a [1:] :
-    pos = a[1:].index('+') +1
-    b = slice_string(a,pos)
-    c = add_string(b)
-    replace_string (b,c)
-    if a[0] == '+':
-        a = a[1:]
-    print (a)
-
-while '-' in a [1:] :
-    pos = a[1:].index('-') +1
-    b = slice_string(a,pos)
-    c = sub_string(b)
-    replace_string (b,c)
-    print (a)
-
-# print(sub_string(a))
-# print (a[1:].index('-')+1)
+while True :
+    a = input("Enter problem to calculate \n")
+    calculate_all()
+    print (f"Your answer is = {a}")
+    b = input ("Enter 0 to exit 1 to continue \n")
+    if b == '1':
+        continue
+    elif b == '0':
+        break
