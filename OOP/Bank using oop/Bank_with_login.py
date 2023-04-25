@@ -38,8 +38,7 @@ class Bank:
     @classmethod
     def set_intrest_rate(cls , new_rate):
          cls.__intrest_rate = new_rate
-         print (f"New intrest rate of {new_rate} have been applied succesfully")
-    
+
     @staticmethod
     def get_gov_holidays ():
          print ("Baishakh 18 : International Labour Day")
@@ -97,7 +96,7 @@ while True:
                 print (f" Your balance is {people[id].check_balance()}")
 
             elif a == '2': 
-                b = int(input ("Enter the amount to deposit \n"))
+                b = int (input ("Enter the amount to deposit \n"))
 
                 if b > 0:
                     people[id].deposit_amount(b)
@@ -108,7 +107,7 @@ while True:
 
 
             elif a == '3':
-                b = int(input ("Enter the amount to withdraw \n"))
+                b = int (input ("Enter the amount to withdraw \n"))
                 if b <= people[id].check_balance():
                     people[id].withdraw_amount(b)
                     print (f"Amount of {b} have been withdrawn succesfully")
@@ -116,11 +115,13 @@ while True:
                     print ("Insufficient balance in your account")
 
             elif a == '4':
-                print(f"The intrest rate of bank = {Bank.get_intrest_rate()}") 
+                print(f"The intrest rate of bank = {Bank.get_intrest_rate()} %") 
 
             elif a == '5':
                 b = input ("Enter new intrest rate of bank\n")
                 Bank.set_intrest_rate (b)
+                print (f"New intrest rate of {Bank.get_intrest_rate()}% have been applied succesfully")
+
 
             elif a == '6':
                 Bank.get_gov_holidays()
