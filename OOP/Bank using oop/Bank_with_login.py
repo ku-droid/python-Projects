@@ -64,15 +64,21 @@ def login ():
 people = []
 
 while True:
-    a = input ("Enter 1 to register new \nEnter 2 to login \nEnter 3 to close app\n")
-    if a == '1': #register new account
-        b = input("Register your name \n")
-        c = input ("Register your password \n")
-        d = input ("Enter your address \n")
-
-        people.append (Bank (b, c, d))
+    print ( "*" * 50)
+    print ("*" * 13, end = '')
+    print(f"Welcome to {Bank.get_bank_name()}", end = '')
+    print ("*" * 13)
+    print ( "*" * 50)
     
-    elif a == '2': # login and functions after login
+    user_choice = input ("Enter 1 to register new \nEnter 2 to login \nEnter 3 to close app\n")
+    if user_choice == '1': #register new account
+        name = input("Register your name \n")
+        password = input ("Register your password \n")
+        address = input ("Enter your address \n")
+
+        people.append (Bank (name, password, address))
+    
+    elif user_choice == '2': # login and functions after login
         id , checklogin = login ()
         if checklogin == False :
             print("Incorrect username or password")
@@ -82,13 +88,6 @@ while True:
         print ( "*" * 50)
     
         while True:
-
-            print ("*" * 13, end = '')
-            print(f"Welcome to {Bank.get_bank_name()}", end = '')
-            print ("*" * 13)
-            print ( "*" * 50)
-
-
             print ("Enter 0 to logout")
             print ("Enter 1 to check balance")
             print ("Enter 2 to deposit")
@@ -97,50 +96,50 @@ while True:
             print ("Enter 5 to set intrest rate")
             print ("Enter 6 to list holidays")
             print ("Enter 7 to print your details ")
-            a = input ()
+            logged_in_choices = input ()
 
-            if a == '0':
+            if logged_in_choices == '0':
                 print ("*" * 50)
                 print(f"\t\tLogged out as { people [id].check_name()}")
                 print ("*" * 50)
                 
                 break
 
-            elif a == '1':
+            elif logged_in_choices == '1':
                 print (f" Your balance is {people[id].check_balance()}")
 
-            elif a == '2': 
-                b = int (input ("Enter the amount to deposit \n"))
+            elif logged_in_choices == '2': 
+                deposit_amt = int (input ("Enter the amount to deposit \n"))
 
                 if b > 0:
-                    people[id].deposit_amount(b)
-                    print (f"Amount of {b} have been deposited succesfully")
+                    people[id].deposit_amount(deposit_amt)
+                    print (f"Amount of {deposit_amt} have been deposited succesfully")
                     print (f"Your new balance is : {people[id].check_balance()}")
                 else:
                     print ("Please enter correct parameter")
 
 
-            elif a == '3':
-                b = int (input ("Enter the amount to withdraw \n"))
-                if b <= people[id].check_balance():
-                    people[id].withdraw_amount(b)
-                    print (f"Amount of {b} have been withdrawn succesfully")
+            elif logged_in_choices == '3':
+                withdraw_amt = int (input ("Enter the amount to withdraw \n"))
+                if withdraw_amt <= people[id].check_balance():
+                    people[id].withdraw_amount(withdraw_amt)
+                    print (f"Amount of {withdraw_amt} have been withdrawn succesfully")
                 else:
                     print ("Insufficient balance in your account")
 
-            elif a == '4':
+            elif logged_in_choices == '4':
                 print(f"The intrest rate of bank = {Bank.get_intrest_rate()} %") 
 
-            elif a == '5':
-                b = input ("Enter new intrest rate of bank\n")
-                Bank.set_intrest_rate (b)
+            elif logged_in_choices == '5':
+                new_intrest = int(input ("Enter new intrest rate of bank\n"))
+                Bank.set_intrest_rate (new_intrest)
                 print (f"New intrest rate of {Bank.get_intrest_rate()}% have been applied succesfully")
 
 
-            elif a == '6':
+            elif logged_in_choices == '6':
                 Bank.get_gov_holidays()
 
-            elif a == '7':
+            elif logged_in_choices == '7':
                 print (f"Name : {people [id].check_name() }")
                 print (f"Address : {people [id].get_address() }")
                 print (f"Balance : {people [id].check_balance()}")
@@ -148,9 +147,9 @@ while True:
             else :
                 print ("Please enter the valid choice\n")
 
-            input ()
+            input ()        #wait for user
 
-    elif a == '3': #logout end terminal
+    elif user_choice == '3': #logout end terminal
         break
 
     else:       #number out of bounds
