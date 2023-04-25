@@ -29,11 +29,7 @@ class Bank:
         return self.__id
     
     def withdraw_amount (self , amount):
-            if self.__balance >= int(amount):
-                self.__balance -= int(amount)
-                print (f"Amount of {amount} have been withdrawn succesfully")
-            else:
-                 print ("Couldnot withdraw amound due to unsufficient balance ")
+        self.__balance -= int(amount)
 
     @classmethod
     def get_intrest_rate(cls):
@@ -112,7 +108,7 @@ while True:
 
 
             elif a == '3':
-                b = input ("Enter the amount to withdraw \n")
+                b = int(input ("Enter the amount to withdraw \n"))
                 if b <= people[id].check_balance():
                     people[id].withdraw_amount(b)
                     print (f"Amount of {b} have been withdrawn succesfully")
