@@ -1,4 +1,5 @@
 class Bank:
+    __bank_name = "Kushal's Bank" 
     __id = 0
     __intrest_rate = 12
     def __init__(self, name, password, address ,balance = 0) :
@@ -21,15 +22,18 @@ class Bank:
     def deposit_amount (self, amount):
             self.__balance += amount
 
-
     def get_address (self):
         return self.__address
     
     def get_id (self):
         return self.__id
     
+    @classmethod
+    def get_bank_name (cls):
+        return cls.__bank_name
+    
     def withdraw_amount (self , amount):
-        self.__balance -= int(amount)
+        self.__balance -= amount
 
     @classmethod
     def get_intrest_rate(cls):
@@ -45,21 +49,20 @@ class Bank:
          print ("Baishakh 22 : Buddha Jayanti")
 
 
-def return_id(name , password):
+def return_id_if_exists(name , password):
     for i in people:
         if i.check_name() == name and i.check_password() == password:
-            print (f"Logged in as {name}")
             return i.get_id() , True
         else :
-            print ("Invalid name or Password")
             return None , False
 
 def login ():
     a = input ("Enter your name ")
     b = input ("Enter your password ")
-    return return_id (a , b)
+    return return_id_if_exists (a , b)
 
 people = []
+
 while True:
     a = input ("Enter 1 to register new \nEnter 2 to login \nEnter 3 to close app\n")
     if a == '1': #register new account
@@ -70,11 +73,22 @@ while True:
         people.append (Bank (b, c, d))
     
     elif a == '2': # login and functions after login
-        id , checklog = login ()
-        if checklog == False :
+        id , checklogin = login ()
+        if checklogin == False :
+            print("Incorrect username or password")
             break
+        print ( "*" * 50)
+        print (f"\t\tLogged in as {people[id].check_name()}")
+        print ( "*" * 50)
+    
         while True:
-            print ("------------------------------Welcome to Bank -----------------------")
+
+            print ("*" * 13, end = '')
+            print(f"Welcome to {Bank.get_bank_name()}", end = '')
+            print ("*" * 13)
+            print ( "*" * 50)
+
+
             print ("Enter 0 to logout")
             print ("Enter 1 to check balance")
             print ("Enter 2 to deposit")
@@ -86,10 +100,10 @@ while True:
             a = input ()
 
             if a == '0':
-                print ("-------------------------------------------------------")
-
-                print(f"Logged out as { people [id].check_name()}")
-                print ("-------------------------------------------------------")
+                print ("*" * 50)
+                print(f"\t\tLogged out as { people [id].check_name()}")
+                print ("*" * 50)
+                
                 break
 
             elif a == '1':
