@@ -52,7 +52,7 @@ class Bank:
 def return_id_if_exists(name , password):
     for i in people:
         if i.check_name() == name and i.check_password() == password:
-            return i.get_id() , True
+            return i.get_id() , True    #True for name and password matches
         else :
             return None , False
 
@@ -69,7 +69,7 @@ while True:
     print(f"Welcome to {Bank.get_bank_name()}", end = '')
     print ("*" * 13)
     print ( "*" * 50)
-    
+
     user_choice = input ("Enter 1 to register new \nEnter 2 to login \nEnter 3 to close app\n")
     if user_choice == '1': #register new account
         name = input("Register your name \n")
@@ -118,7 +118,6 @@ while True:
                 else:
                     print ("Please enter correct parameter")
 
-
             elif logged_in_choices == '3':
                 withdraw_amt = int (input ("Enter the amount to withdraw \n"))
                 if withdraw_amt <= people[id].check_balance():
@@ -134,7 +133,6 @@ while True:
                 new_intrest = int(input ("Enter new intrest rate of bank\n"))
                 Bank.set_intrest_rate (new_intrest)
                 print (f"New intrest rate of {Bank.get_intrest_rate()}% have been applied succesfully")
-
 
             elif logged_in_choices == '6':
                 Bank.get_gov_holidays()
