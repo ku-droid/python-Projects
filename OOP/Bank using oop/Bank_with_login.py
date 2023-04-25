@@ -1,3 +1,5 @@
+# Created by Kushal Bogati
+# Date : 2023 / 4 / 25
 class Bank:
     __bank_name = "Kushal's Bank" 
     __id = 0
@@ -111,7 +113,7 @@ while True:
             elif logged_in_choices == '2': 
                 deposit_amt = int (input ("Enter the amount to deposit \n"))
 
-                if b > 0:
+                if deposit_amt > 0:
                     people[id].deposit_amount(deposit_amt)
                     print (f"Amount of {deposit_amt} have been deposited succesfully")
                     print (f"Your new balance is : {people[id].check_balance()}")
