@@ -1,4 +1,5 @@
-# data = []
+import handle_file
+
 class Laptop_Details:
     def __init__(self, name, CPU, GPU, RAM, storage, display, price, quantity):
         self.__name = name
@@ -44,3 +45,52 @@ class Laptop_Details:
         self.__quantity = qty
 
 
+class Login:
+    def __init__(self, username, password):
+        self.__username = username
+        self.__password = password
+    
+    def get_username(self):
+        return self.__username
+    
+    def get_password(self):
+        return self.__password
+    
+    def set_username(self, username):
+        self.__username = username
+    
+    def set_password(self, password):
+        self.__password = password
+    @staticmethod
+    def show_data():
+        handle_file.show_data()
+
+
+class Customer_login(Login):
+    @staticmethod
+    def get_bill(data):
+        handle_file.create_bill_customer(data)
+        print("Your bill have been succesfully made")
+
+class Admin_login(Login):
+
+    @staticmethod
+    def add_new_items():
+        handle_file.add_new_items()
+        print("New product have been succesfully added")
+
+login_list = []
+
+login_list.append(Customer_login('kushal','1234'))
+login_list.append(Customer_login('Bogati','123'))
+
+
+a = input("Enter your name")
+b = input("Enter your password")
+
+for user in login_list:
+    if user.get_username() == a and user.get_password() == b:
+        print (f"Logged in as {a}")
+        break
+else:
+    print("username or password mismatch")
