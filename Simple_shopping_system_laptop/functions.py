@@ -3,6 +3,8 @@ import handle_file
 
 customer_object_list = []
 admin_object_list = []
+laptop_object_list = []
+laptop_list = []
 
 def create_object_login_details():
     a = handle_file.return_from_login_details()
@@ -12,13 +14,13 @@ def create_object_login_details():
         elif item[0].strip().lower() == 'admin':
             admin_object_list.append(Laptop_class.Admin_login(item[1] ,item[2]))
 
-
-# create_object_login_details()
-
-# print(customer_object_list)
-# for items in customer_object_list:
-#     print(items.get_username())
-
+def create_object_laptop_list():
+    data = handle_file.create_object_list()
+    for items in data:
+        name = items[0]
+        info = items[1]
+        laptop_object_list.append(Laptop_class.Laptop_Details(name, info[0], info[1], info[2], info[3], info[4], info[5], info[6]))
+    
 
 def login():
     type = input("Enter 1 for admin login 2 for customer login")
@@ -35,6 +37,7 @@ def login():
         for items in customer_object_list:
             if name == items.get_username() and password == items.get_password():
                 print(f"Logged in as {name}")
+                logged_in_operations_customer()
                 break
             else:
                 print("Incorrect name or password")
@@ -44,17 +47,37 @@ def login():
 def logged_in_operations_customer():
     print ("Please enter 1 to buy \n2 to recieve bill \n3 to logout\n")
     user_input = input()
-    if user_input == 1:
-        # print ("Select the sn of the item you want to buy")
+    if user_input == '1':
+        print ("Select the sn of the item you want to buy")
         handle_file.show_data()
+        user_input = int(input("Enter the sn no of the items you want to buy\n"))
+        input_quantity = int(input(f"Enter how many {laptop_object_list[user_input - 1 ].get_name()} you want to buy"))
+        laptop_object_list[user_input - 1].sold_product(input_quantity)
+    # if user_input == 2:
+
 
 def logged_in_operations_admin():
     pass
 
 
-create_object_login_details()
-# for i in customer_object_list:
-#     print (i.get_username())
-login()
+def update_file_laptop_specs():
+    list_laptop = []
+    for items in laptop_object_list:
+        list_laptop = [f'{items.get_name()} : {items.get_CPU()} , {items.get_GPU()} , {items.get_RAM()} , {items.get_storage()} , {items.get_display()} , {items.get_price()} , {items.get_quantity()}']
+        laptop_list.append (list_laptop)
+    handle_file.write_updated_list_laptop(laptop_list)
 
-# logged_in_operations_customer()
+
+
+
+        
+
+
+# create_object_login_details()
+# create_object_laptop_list()
+
+# login()
+# update_file_laptop_specs()
+# data = handle_file.create_object_list()
+
+
